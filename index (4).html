@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mercedes-Benz | Офіційний дилер</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Didact+Gothic&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --silver: #c0c0c0;
+    --gold: #b8974a;
+    --white: #f5f4f0;
+    --mid: #1a1a1a;
+    --card-bg: #111111;
+    --border: rgba(192,192,192,0.18);
+    --text-muted: #888;
+    --accent: #b8974a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Didact Gothic', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 56px;
+    height: 72px;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(14px);
+    border-bottom: 0.5px solid var(--border);
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 14px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .nav-logo svg { width: 38px; height: 38px; }
+  .nav-logo-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 300;
+    letter-spacing: 0.18em;
+    color: var(--white);
+  }
+  .nav-links {
+    display: flex; gap: 36px; list-style: none;
+  }
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.25s;
+    cursor: pointer;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--white); }
+  .nav-cta {
+    background: var(--gold);
+    color: var(--black);
+    border: none;
+    padding: 10px 28px;
+    font-family: 'Didact Gothic', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .nav-cta:hover { opacity: 0.85; }
+
+  /* PAGES */
+  .page { display: none; padding-top: 72px; min-height: 100vh; }
+  .page.active { display: block; }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    height: calc(100vh - 72px);
+    display: flex; align-items: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1208 40%, #0d0d0d 100%);
+  }
+  .hero-lines {
+    position: absolute; inset: 0; opacity: 0.07;
+    background-image: repeating-linear-gradient(90deg, var(--silver) 0px, var(--silver) 1px, transparent 1px, transparent 120px);
+  }
+  .hero-car {
+    position: absolute; right: -40px; bottom: 0;
+    width: 68%;
+    opacity: 0.92;
+  }
+  .hero-car svg { width: 100%; height: auto; }
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 0 56px;
+    max-width: 640px;
+    animation: fadeUp 1.2s ease both;
+  }
+  .hero-tag {
+    display: inline-block;
+    font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--gold);
+    border: 0.5px solid var(--gold);
+    padding: 6px 16px;
+    margin-bottom: 28px;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 6vw, 88px);
+    font-weight: 300;
+    line-height: 1.0;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    margin-bottom: 24px;
+  }
+  .hero-title em { font-style: italic; color: var(--gold); }
+  .hero-sub {
+    color: var(--text-muted);
+    font-size: 15px; line-height: 1.8;
+    margin-bottom: 44px;
+    max-width: 400px;
+  }
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--gold); color: var(--black);
+    border: none; padding: 14px 36px;
+    font-family: 'Didact Gothic', sans-serif;
+    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent; color: var(--white);
+    border: 0.5px solid rgba(255,255,255,0.3); padding: 14px 36px;
+    font-family: 'Didact Gothic', sans-serif;
+    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--white); }
+  .hero-stats {
+    position: absolute; bottom: 48px; left: 56px; right: 56px;
+    display: flex; gap: 48px; z-index: 2;
+    border-top: 0.5px solid var(--border); padding-top: 28px;
+  }
+  .hero-stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px; font-weight: 300; color: var(--gold);
+    display: block;
+  }
+  .hero-stat-lbl {
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* SECTION HEADER */
+  .section { padding: 96px 56px; }
+  .section-tag {
+    font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 60px); font-weight: 300;
+    line-height: 1.1; color: var(--white); margin-bottom: 48px;
+  }
+
+  /* CARS GRID */
+  .cars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2px;
+  }
+  .car-card {
+    background: var(--card-bg);
+    border: 0.5px solid var(--border);
+    cursor: pointer;
+    transition: transform 0.3s, border-color 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .car-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(184,151,74,0.06) 100%);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .car-card:hover { transform: translateY(-4px); border-color: rgba(184,151,74,0.5); }
+  .car-card:hover::before { opacity: 1; }
+  .car-card-img {
+    width: 100%; aspect-ratio: 16/9; overflow: hidden;
+    background: #0d0d0d;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .car-card-img svg { width: 100%; height: 100%; }
+  .car-card-badge {
+    position: absolute; top: 16px; left: 16px;
+    background: var(--gold); color: var(--black);
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    padding: 4px 12px;
+  }
+  .car-card-body { padding: 24px; }
+  .car-card-class {
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 6px;
+  }
+  .car-card-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; font-weight: 300; color: var(--white);
+    margin-bottom: 10px;
+  }
+  .car-card-desc {
+    font-size: 13px; color: var(--text-muted); line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  .car-card-specs {
+    display: flex; gap: 16px; margin-bottom: 20px;
+    border-top: 0.5px solid var(--border); padding-top: 16px;
+  }
+  .spec { flex: 1; text-align: center; }
+  .spec-val {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 300; color: var(--white); display: block;
+  }
+  .spec-lbl {
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .car-card-footer {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .car-card-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 300; color: var(--gold);
+  }
+  .car-card-price span { font-size: 13px; color: var(--text-muted); font-family: 'Didact Gothic', sans-serif; }
+  .btn-sm {
+    background: transparent; color: var(--white);
+    border: 0.5px solid rgba(255,255,255,0.25); padding: 8px 20px;
+    font-family: 'Didact Gothic', sans-serif;
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .btn-sm:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* CAR DETAIL PAGE */
+  .detail-hero {
+    display: grid; grid-template-columns: 1fr 420px;
+    gap: 0; min-height: 70vh; align-items: stretch;
+  }
+  .detail-visual {
+    background: #0d0d0d;
+    display: flex; align-items: center; justify-content: center;
+    padding: 48px;
+    border-right: 0.5px solid var(--border);
+    overflow: hidden;
+  }
+  .detail-visual svg { max-width: 100%; max-height: 460px; }
+  .detail-visual img { max-width: 100%; max-height: 460px; object-fit: contain; }
+  .detail-info { padding: 56px 48px; display: flex; flex-direction: column; justify-content: center; }
+  .detail-back {
+    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-muted); cursor: pointer; margin-bottom: 32px;
+    background: none; border: none; color: var(--text-muted);
+    font-family: 'Didact Gothic', sans-serif;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .detail-back:hover { color: var(--gold); }
+  .detail-class { font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  .detail-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px; font-weight: 300; color: var(--white);
+    margin-bottom: 16px; line-height: 1.0;
+  }
+  .detail-tagline { font-size: 15px; color: var(--text-muted); margin-bottom: 32px; line-height: 1.7; }
+  .detail-specs-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1px; background: var(--border);
+    border: 0.5px solid var(--border);
+    margin-bottom: 32px;
+  }
+  .detail-spec {
+    background: var(--card-bg); padding: 16px 20px;
+  }
+  .detail-spec-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+  .detail-spec-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 300; color: var(--white);
+  }
+  .detail-price-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 28px; }
+  .detail-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 44px; font-weight: 300; color: var(--gold);
+  }
+  .detail-price-note { font-size: 13px; color: var(--text-muted); }
+  .detail-features {
+    margin: 32px 0;
+    padding: 32px 48px;
+    border-top: 0.5px solid var(--border);
+    border-bottom: 0.5px solid var(--border);
+  }
+  .features-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px; font-weight: 300; color: var(--white); margin-bottom: 24px;
+  }
+  .features-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  .feature-item {
+    background: var(--card-bg); border: 0.5px solid var(--border); padding: 20px;
+  }
+  .feature-icon {
+    font-size: 28px; margin-bottom: 10px; color: var(--gold);
+  }
+  .feature-name { font-size: 14px; color: var(--white); margin-bottom: 4px; }
+  .feature-desc { font-size: 12px; color: var(--text-muted); }
+
+  /* ABOUT PAGE */
+  .about-hero {
+    display: grid; grid-template-columns: 1fr 1fr;
+    min-height: 60vh;
+  }
+  .about-text-col { padding: 80px 56px; }
+  .about-img-col {
+    background: var(--card-bg);
+    display: flex; align-items: center; justify-content: center;
+    padding: 48px;
+    border-left: 0.5px solid var(--border);
+  }
+  .about-img-col svg { max-width: 100%; }
+  .about-lead {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; font-weight: 300; color: var(--white);
+    line-height: 1.5; margin-bottom: 28px;
+  }
+  .about-body { color: var(--text-muted); font-size: 15px; line-height: 1.8; margin-bottom: 24px; }
+  .about-values {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    padding: 0 56px 80px;
+  }
+  .value-card {
+    background: var(--card-bg); border: 0.5px solid var(--border);
+    padding: 36px 28px;
+  }
+  .value-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px; font-weight: 300; color: var(--gold); opacity: 0.4;
+    display: block; margin-bottom: 16px;
+  }
+  .value-title { font-size: 16px; color: var(--white); margin-bottom: 10px; }
+  .value-desc { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+
+  /* CONTACTS */
+  .contacts-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+    padding: 0 56px 80px;
+  }
+  .contact-card {
+    background: var(--card-bg); border: 0.5px solid var(--border); padding: 40px;
+  }
+  .contact-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px; font-weight: 300; color: var(--white); margin-bottom: 20px;
+  }
+  .contact-item { display: flex; gap: 16px; margin-bottom: 18px; align-items: flex-start; }
+  .contact-icon { font-size: 20px; color: var(--gold); flex-shrink: 0; margin-top: 2px; }
+  .contact-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 3px; }
+  .contact-value { font-size: 15px; color: var(--white); }
+  .contact-form { display: flex; flex-direction: column; gap: 14px; }
+  .contact-form input, .contact-form textarea, .contact-form select {
+    background: #0d0d0d; border: 0.5px solid var(--border);
+    color: var(--white); padding: 14px 18px;
+    font-family: 'Didact Gothic', sans-serif; font-size: 14px;
+    outline: none; transition: border-color 0.2s;
+    width: 100%; resize: vertical;
+  }
+  .contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus {
+    border-color: var(--gold);
+  }
+  .contact-form select option { background: #111; }
+
+  /* PAYMENT MODAL */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 2000;
+    background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
+    align-items: center; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: #111; border: 0.5px solid var(--border);
+    width: 560px; max-width: 95vw; max-height: 90vh; overflow-y: auto;
+  }
+  .modal-header {
+    padding: 28px 32px 20px;
+    border-bottom: 0.5px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .modal-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; font-weight: 300; color: var(--white);
+  }
+  .modal-close {
+    background: none; border: none; color: var(--text-muted);
+    font-size: 22px; cursor: pointer; transition: color 0.2s;
+  }
+  .modal-close:hover { color: var(--white); }
+  .modal-body { padding: 28px 32px; }
+  .modal-car-row {
+    display: flex; align-items: center; justify-content: space-between;
+    background: #0d0d0d; border: 0.5px solid var(--border);
+    padding: 16px 20px; margin-bottom: 24px;
+  }
+  .modal-car-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 300; color: var(--white);
+  }
+  .modal-car-price { color: var(--gold); font-size: 20px; font-family: 'Cormorant Garamond', serif; }
+  .form-group { margin-bottom: 16px; }
+  .form-label {
+    display: block; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 8px;
+  }
+  .form-input {
+    width: 100%; background: #0d0d0d; border: 0.5px solid var(--border);
+    color: var(--white); padding: 13px 16px;
+    font-family: 'Didact Gothic', sans-serif; font-size: 14px;
+    outline: none; transition: border-color 0.2s;
+  }
+  .form-input:focus { border-color: var(--gold); }
+  .form-input.error { border-color: #cc3333; }
+  .form-input:focus { outline: none; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .payment-methods { display: flex; gap: 10px; margin-bottom: 20px; }
+  .pay-method {
+    flex: 1; padding: 12px; background: #0d0d0d;
+    border: 0.5px solid var(--border); cursor: pointer;
+    text-align: center; font-size: 12px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--text-muted);
+    transition: all 0.2s;
+  }
+  .pay-method.selected { border-color: var(--gold); color: var(--gold); }
+  .total-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 16px 0; border-top: 0.5px solid var(--border);
+    margin-top: 8px;
+  }
+  .total-label { font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); }
+  .total-amount { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; color: var(--gold); }
+  .success-msg {
+    display: none; text-align: center; padding: 32px 0;
+  }
+  .success-icon { font-size: 56px; color: var(--gold); margin-bottom: 16px; }
+  .success-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px; font-weight: 300; color: var(--white); margin-bottom: 10px;
+  }
+  .success-sub { color: var(--text-muted); font-size: 14px; }
+
+  /* FOOTER */
+  footer {
+    border-top: 0.5px solid var(--border);
+    padding: 48px 56px;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+  }
+  .footer-brand-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 300; color: var(--white);
+    margin-bottom: 10px;
+  }
+  .footer-tagline { font-size: 13px; color: var(--text-muted); line-height: 1.7; max-width: 240px; }
+  .footer-col-title { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: 10px; }
+  .footer-links a { color: var(--text-muted); font-size: 13px; cursor: pointer; transition: color 0.2s; text-decoration: none; }
+  .footer-links a:hover { color: var(--white); }
+  .footer-bottom {
+    grid-column: 1 / -1; border-top: 0.5px solid var(--border); padding-top: 24px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-copy { font-size: 12px; color: var(--text-muted); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Car image styles */
+  .car-card-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .car-card:hover .car-card-img img { transform: scale(1.04); }
+  .detail-visual img {
+    max-width: 100%; max-height: 460px;
+    object-fit: contain;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="nav-logo" onclick="showPage('home')">
+    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="46" stroke="#c0c0c0" stroke-width="2"/>
+      <circle cx="50" cy="50" r="36" stroke="#c0c0c0" stroke-width="0.8"/>
+      <line x1="50" y1="14" x2="50" y2="50" stroke="#c0c0c0" stroke-width="2"/>
+      <line x1="50" y1="50" x2="18" y2="71" stroke="#c0c0c0" stroke-width="2"/>
+      <line x1="50" y1="50" x2="82" y2="71" stroke="#c0c0c0" stroke-width="2"/>
+      <circle cx="50" cy="50" r="5" fill="#b8974a"/>
+    </svg>
+    <span class="nav-logo-text">Mercedes-Benz</span>
+  </div>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')" id="nav-home" class="active">Головна</a></li>
+    <li><a onclick="showPage('catalog')" id="nav-catalog">Каталог</a></li>
+    <li><a onclick="showPage('about')" id="nav-about">Про нас</a></li>
+    <li><a onclick="showPage('contacts')" id="nav-contacts">Контакти</a></li>
+  </ul>
+  <button class="nav-cta" onclick="showPage('catalog')">Переглянути авто</button>
+</nav>
+
+<!-- HOME PAGE -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-lines"></div>
+    <div class="hero-car">
+      <svg viewBox="0 0 900 400" xmlns="http://www.w3.org/2000/svg">
+        <!-- Shadow -->
+        <ellipse cx="450" cy="375" rx="340" ry="16" fill="rgba(0,0,0,0.4)"/>
+        <!-- Body -->
+        <path d="M90 310 L120 230 L200 200 L270 185 L400 178 L560 180 L680 190 L760 215 L790 270 L800 310 Z" fill="#1c1c1c" stroke="#333" stroke-width="1"/>
+        <!-- Roof -->
+        <path d="M250 185 L300 148 L400 132 L500 130 L590 136 L650 155 L680 185" fill="#181818" stroke="#2a2a2a" stroke-width="1"/>
+        <!-- Windshield -->
+        <path d="M300 148 L310 186 L500 186 L590 155" fill="rgba(100,170,220,0.15)" stroke="#2a2a2a" stroke-width="0.8"/>
+        <!-- Rear window -->
+        <path d="M590 136 L642 155 L648 186 L598 186" fill="rgba(100,170,220,0.12)" stroke="#2a2a2a" stroke-width="0.8"/>
+        <!-- Side windows -->
+        <path d="M330 186 L338 155 L440 148 L440 186" fill="rgba(100,170,220,0.1)" stroke="#2a2a2a" stroke-width="0.7"/>
+        <path d="M445 186 L447 147 L540 144 L548 186" fill="rgba(100,170,220,0.1)" stroke="#2a2a2a" stroke-width="0.7"/>
+        <!-- Body line highlight -->
+        <path d="M160 260 Q400 248 760 258" fill="none" stroke="rgba(192,192,192,0.2)" stroke-width="1.5"/>
+        <!-- Hood -->
+        <path d="M90 310 L120 230 L200 200 L210 205 L160 265 L130 305" fill="#161616" stroke="#2a2a2a" stroke-width="0.8"/>
+        <!-- Grill -->
+        <rect x="92" y="268" width="50" height="34" rx="4" fill="#0a0a0a" stroke="#b8974a" stroke-width="0.8"/>
+        <line x1="117" y1="268" x2="117" y2="302" stroke="#b8974a" stroke-width="0.5"/>
+        <line x1="92" y1="282" x2="142" y2="282" stroke="#b8974a" stroke-width="0.5"/>
+        <line x1="92" y1="291" x2="142" y2="291" stroke="#b8974a" stroke-width="0.5"/>
+        <!-- Front light -->
+        <path d="M95 252 L130 242 L138 255 L102 264" fill="#b8974a" opacity="0.7"/>
+        <path d="M95 252 L130 242 L138 255 L102 264" fill="none" stroke="#daa520" stroke-width="0.5"/>
+        <!-- Rear lights -->
+        <rect x="764" y="248" width="28" height="40" rx="3" fill="#cc3333" opacity="0.7"/>
+        <rect x="764" y="248" width="28" height="40" rx="3" fill="none" stroke="#ff4444" stroke-width="0.5"/>
+        <!-- Front wheels -->
+        <circle cx="195" cy="320" r="46" fill="#0a0a0a"/>
+        <circle cx="195" cy="320" r="38" fill="none" stroke="#555" stroke-width="2"/>
+        <circle cx="195" cy="320" r="28" fill="#111" stroke="#c0c0c0" stroke-width="1.2"/>
+        <circle cx="195" cy="320" r="10" fill="#b8974a"/>
+        <line x1="195" y1="292" x2="195" y2="348" stroke="#777" stroke-width="1.5"/>
+        <line x1="167" y1="320" x2="223" y2="320" stroke="#777" stroke-width="1.5"/>
+        <line x1="175" y1="300" x2="215" y2="340" stroke="#777" stroke-width="1.5"/>
+        <line x1="175" y1="340" x2="215" y2="300" stroke="#777" stroke-width="1.5"/>
+        <!-- Rear wheels -->
+        <circle cx="640" cy="320" r="46" fill="#0a0a0a"/>
+        <circle cx="640" cy="320" r="38" fill="none" stroke="#555" stroke-width="2"/>
+        <circle cx="640" cy="320" r="28" fill="#111" stroke="#c0c0c0" stroke-width="1.2"/>
+        <circle cx="640" cy="320" r="10" fill="#b8974a"/>
+        <line x1="640" y1="292" x2="640" y2="348" stroke="#777" stroke-width="1.5"/>
+        <line x1="612" y1="320" x2="668" y2="320" stroke="#777" stroke-width="1.5"/>
+        <line x1="620" y1="300" x2="660" y2="340" stroke="#777" stroke-width="1.5"/>
+        <line x1="620" y1="340" x2="660" y2="300" stroke="#777" stroke-width="1.5"/>
+        <!-- Door handles -->
+        <rect x="358" y="248" width="28" height="8" rx="4" fill="#555"/>
+        <rect x="490" y="248" width="28" height="8" rx="4" fill="#555"/>
+        <!-- Logo on hood -->
+        <circle cx="150" cy="210" r="12" fill="none" stroke="#c0c0c0" stroke-width="1.2"/>
+        <circle cx="150" cy="210" r="7" fill="none" stroke="#c0c0c0" stroke-width="0.8"/>
+        <line x1="150" y1="203" x2="150" y2="210" stroke="#c0c0c0" stroke-width="1"/>
+        <line x1="150" y1="210" x2="144" y2="215" stroke="#c0c0c0" stroke-width="1"/>
+        <line x1="150" y1="210" x2="156" y2="215" stroke="#c0c0c0" stroke-width="1"/>
+      </svg>
+    </div>
+    <div class="hero-content">
+      <span class="hero-tag">Офіційний дилер · Київ</span>
+      <h1 class="hero-title">Втіліть<br><em>досконалість</em><br>у русі</h1>
+      <p class="hero-sub">Mercedes-Benz — більше ніж автомобіль. Це мистецтво інженерії, що змінює ваше уявлення про комфорт.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('catalog')">Обрати автомобіль</button>
+        <button class="btn-outline" onclick="showPage('about')">Про нас</button>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <span class="hero-stat-num">138</span>
+        <span class="hero-stat-lbl">Років спадщини</span>
+      </div>
+      <div>
+        <span class="hero-stat-num">47</span>
+        <span class="hero-stat-lbl">Моделей</span>
+      </div>
+      <div>
+        <span class="hero-stat-num">12K+</span>
+        <span class="hero-stat-lbl">Клієнтів</span>
+      </div>
+      <div>
+        <span class="hero-stat-num">24/7</span>
+        <span class="hero-stat-lbl">Підтримка</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Featured section on home -->
+  <div class="section">
+    <div class="section-tag">Обрані моделі</div>
+    <div class="section-title">Популярні<br>автомобілі</div>
+    <div class="cars-grid" id="home-cars"></div>
+    <div style="text-align:center;margin-top:48px">
+      <button class="btn-outline" onclick="showPage('catalog')" style="padding:16px 48px">Весь каталог</button>
+    </div>
+  </div>
+
+  <footer>
+    <div>
+      <div class="footer-brand-name">Mercedes-Benz Київ</div>
+      <div class="footer-tagline">Офіційний авторизований дилер. Ваш надійний партнер у світі преміум-автомобілів з 1995 року.</div>
+    </div>
+    <div>
+      <div class="footer-col-title">Навігація</div>
+      <ul class="footer-links">
+        <li><a onclick="showPage('catalog')">Каталог</a></li>
+        <li><a onclick="showPage('about')">Про нас</a></li>
+        <li><a onclick="showPage('contacts')">Контакти</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Послуги</div>
+      <ul class="footer-links">
+        <li><a>Тест-драйв</a></li>
+        <li><a>Trade-in</a></li>
+        <li><a>Сервіс</a></li>
+        <li><a>Кредитування</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Контакти</div>
+      <ul class="footer-links">
+        <li><a>+38 (044) 123-45-67</a></li>
+        <li><a>info@mercedes-kyiv.ua</a></li>
+        <li><a>вул. Хрещатик, 1</a></li>
+        <li><a>Пн–Нд: 9:00–20:00</a></li>
+      </ul>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2024 Mercedes-Benz Київ. Всі права захищено.</span>
+      <span class="footer-copy">Офіційний дилер Mercedes-Benz</span>
+    </div>
+  </footer>
+</div>
+
+<!-- CATALOG PAGE -->
+<div id="page-catalog" class="page">
+  <div class="section">
+    <div class="section-tag">Весь асортимент</div>
+    <div class="section-title">Каталог<br>автомобілів</div>
+    <div class="cars-grid" id="catalog-cars"></div>
+  </div>
+</div>
+
+<!-- CAR DETAIL PAGE -->
+<div id="page-detail" class="page">
+  <div id="detail-content"></div>
+</div>
+
+<!-- ABOUT PAGE -->
+<div id="page-about" class="page">
+  <div class="about-hero">
+    <div class="about-text-col">
+      <div class="section-tag">Наша історія</div>
+      <h2 class="section-title" style="margin-bottom:28px">Про нас</h2>
+      <p class="about-lead">Ми — офіційний дилер Mercedes-Benz у Києві з понад 28-річним досвідом роботи на ринку преміум-автомобілів України.</p>
+      <p class="about-body">Наш салон відкрився у 1995 році і від першого дня відданий одній меті: надавати клієнтам найвищий рівень сервісу та допомагати кожному знайти автомобіль своєї мрії. Ми не просто продаємо машини — ми створюємо досвід, що лишається з вами назавжди.</p>
+      <p class="about-body">Команда з понад 80 сертифікованих спеціалістів готова відповісти на будь-яке запитання, провести тест-драйв та забезпечити бездоганне технічне обслуговування вашого Mercedes-Benz.</p>
+      <div style="display:flex;gap:40px;margin-top:40px;padding-top:40px;border-top:0.5px solid var(--border)">
+        <div><span style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:300;color:var(--gold)">28+</span><br><span style="font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted)">Років на ринку</span></div>
+        <div><span style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:300;color:var(--gold)">80+</span><br><span style="font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted)">Спеціалістів</span></div>
+        <div><span style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:300;color:var(--gold)">12K</span><br><span style="font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted)">Задоволених клієнтів</span></div>
+      </div>
+    </div>
+    <div class="about-img-col">
+      <svg viewBox="0 0 480 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="480" height="360" fill="#0d0d0d"/>
+        <!-- Showroom floor -->
+        <rect x="0" y="260" width="480" height="100" fill="#0f0f0f"/>
+        <line x1="0" y1="260" x2="480" y2="260" stroke="#222" stroke-width="1"/>
+        <!-- Car 1 -->
+        <ellipse cx="160" cy="278" rx="120" ry="10" fill="rgba(0,0,0,0.5)"/>
+        <path d="M50 270 L70 230 L120 218 L200 215 L260 218 L280 230 L280 270 Z" fill="#181818" stroke="#2a2a2a" stroke-width="0.8"/>
+        <path d="M100 218 L118 198 L180 192 L230 196 L250 215" fill="#141414" stroke="#222" stroke-width="0.8"/>
+        <circle cx="90" cy="278" r="18" fill="#0a0a0a" stroke="#444" stroke-width="1.2"/>
+        <circle cx="90" cy="278" r="10" fill="#111" stroke="#c0c0c0" stroke-width="0.8"/>
+        <circle cx="240" cy="278" r="18" fill="#0a0a0a" stroke="#444" stroke-width="1.2"/>
+        <circle cx="240" cy="278" r="10" fill="#111" stroke="#c0c0c0" stroke-width="0.8"/>
+        <!-- Spotlight 1 -->
+        <path d="M160 0 L100 215 L220 215 Z" fill="rgba(184,151,74,0.04)"/>
+        <line x1="160" y1="0" x2="100" y2="215" stroke="rgba(184,151,74,0.08)" stroke-width="0.5"/>
+        <line x1="160" y1="0" x2="220" y2="215" stroke="rgba(184,151,74,0.08)" stroke-width="0.5"/>
+        <!-- Car 2 (right, darker) -->
+        <ellipse cx="380" cy="278" rx="90" ry="8" fill="rgba(0,0,0,0.4)"/>
+        <path d="M300 270 L315 238 L355 225 L420 223 L450 230 L460 270 Z" fill="#131313" stroke="#222" stroke-width="0.8"/>
+        <path d="M325 225 L340 210 L400 206 L430 218" fill="#111" stroke="#1a1a1a" stroke-width="0.7"/>
+        <circle cx="316" cy="277" r="15" fill="#0a0a0a" stroke="#333" stroke-width="1"/>
+        <circle cx="316" cy="277" r="8" fill="#111" stroke="#aaa" stroke-width="0.7"/>
+        <circle cx="444" cy="277" r="15" fill="#0a0a0a" stroke="#333" stroke-width="1"/>
+        <circle cx="444" cy="277" r="8" fill="#111" stroke="#aaa" stroke-width="0.7"/>
+        <!-- Spotlight 2 -->
+        <path d="M380 0 L330 223 L430 223 Z" fill="rgba(184,151,74,0.03)"/>
+        <!-- Logo center -->
+        <circle cx="240" cy="100" r="40" fill="none" stroke="rgba(192,192,192,0.15)" stroke-width="1.5"/>
+        <circle cx="240" cy="100" r="28" fill="none" stroke="rgba(192,192,192,0.1)" stroke-width="1"/>
+        <line x1="240" y1="72" x2="240" y2="100" stroke="rgba(192,192,192,0.3)" stroke-width="1.5"/>
+        <line x1="240" y1="100" x2="216" y2="116" stroke="rgba(192,192,192,0.3)" stroke-width="1.5"/>
+        <line x1="240" y1="100" x2="264" y2="116" stroke="rgba(192,192,192,0.3)" stroke-width="1.5"/>
+        <circle cx="240" cy="100" r="5" fill="#b8974a" opacity="0.6"/>
+        <!-- MB text -->
+        <text x="240" y="155" font-family="Georgia,serif" font-size="11" fill="rgba(184,151,74,0.5)" text-anchor="middle" letter-spacing="8">MERCEDES-BENZ</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="about-values">
+    <div class="value-card">
+      <span class="value-number">01</span>
+      <div class="value-title">Якість без компромісів</div>
+      <div class="value-desc">Кожен автомобіль проходить 150-точкову перевірку нашими сертифікованими техніками перед передачею клієнту.</div>
+    </div>
+    <div class="value-card">
+      <span class="value-number">02</span>
+      <div class="value-title">Персональний підхід</div>
+      <div class="value-desc">Ваш особистий менеджер супроводжує вас від першого візиту до моменту, коли ви сядете за кермо.</div>
+    </div>
+    <div class="value-card">
+      <span class="value-number">03</span>
+      <div class="value-title">Прозорість та довіра</div>
+      <div class="value-desc">Чіткі умови, прозоре ціноутворення та жодних прихованих платежів. Ми будуємо відносини на довірі.</div>
+    </div>
+  </div>
+
+  <div style="padding:0 56px 80px">
+    <div style="border:0.5px solid var(--border);padding:48px;background:var(--card-bg);display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center">
+      <div>
+        <div class="section-tag">Наші нагороди</div>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--white);margin-bottom:16px;line-height:1.2">Визнання на<br>національному рівні</h3>
+        <p style="color:var(--text-muted);font-size:14px;line-height:1.8">Щорічно ми отримуємо нагороди від Mercedes-Benz AG за найвищий рівень обслуговування та обсяги продажів в Україні.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div style="border:0.5px solid var(--border);padding:20px;text-align:center">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--gold)">#1</div>
+          <div style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-top:6px">Дилер року<br>2022, 2023</div>
+        </div>
+        <div style="border:0.5px solid var(--border);padding:20px;text-align:center">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--gold)">5★</div>
+          <div style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-top:6px">Рейтинг<br>Google</div>
+        </div>
+        <div style="border:0.5px solid var(--border);padding:20px;text-align:center">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--gold)">ISO</div>
+          <div style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-top:6px">Сертифікат<br>якості 9001</div>
+        </div>
+        <div style="border:0.5px solid var(--border);padding:20px;text-align:center">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--gold)">MB</div>
+          <div style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-top:6px">Certified<br>Dealer</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACTS PAGE -->
+<div id="page-contacts" class="page">
+  <div class="section">
+    <div class="section-tag">Зв'яжіться з нами</div>
+    <div class="section-title">Контакти</div>
+    <div class="contacts-grid">
+      <div class="contact-card">
+        <h3>Інформація</h3>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <span class="contact-label">Адреса</span>
+            <span class="contact-value">м. Київ, вул. Хрещатик, 1<br>Торговий центр "Mercedes-Plaza"</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div>
+            <span class="contact-label">Телефон</span>
+            <span class="contact-value">+38 (044) 123-45-67<br>+38 (067) 987-65-43</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div>
+            <span class="contact-label">Email</span>
+            <span class="contact-value">info@mercedes-kyiv.ua<br>sales@mercedes-kyiv.ua</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🕐</div>
+          <div>
+            <span class="contact-label">Графік роботи</span>
+            <span class="contact-value">Пн–Пт: 9:00 – 20:00<br>Сб–Нд: 10:00 – 18:00</span>
+          </div>
+        </div>
+        <div style="margin-top:24px;padding:20px;background:#0d0d0d;border:0.5px solid var(--border)">
+          <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px">Сервісний центр</div>
+          <div style="font-size:13px;color:var(--text-muted);line-height:1.7">вул. Промислова, 14<br>+38 (044) 321-00-11<br>Пн–Пт: 8:00 – 18:00</div>
+        </div>
+      </div>
+      <div class="contact-card">
+        <h3>Напишіть нам</h3>
+        <div class="contact-form">
+          <input type="text" placeholder="Ваше ім'я" style="background:#0d0d0d;border:0.5px solid var(--border);color:var(--white);padding:14px 18px;font-family:'Didact Gothic',sans-serif;font-size:14px;outline:none;width:100%">
+          <input type="email" placeholder="Email адреса" style="background:#0d0d0d;border:0.5px solid var(--border);color:var(--white);padding:14px 18px;font-family:'Didact Gothic',sans-serif;font-size:14px;outline:none;width:100%">
+          <input type="tel" placeholder="Номер телефону" style="background:#0d0d0d;border:0.5px solid var(--border);color:var(--white);padding:14px 18px;font-family:'Didact Gothic',sans-serif;font-size:14px;outline:none;width:100%">
+          <select style="background:#0d0d0d;border:0.5px solid var(--border);color:var(--white);padding:14px 18px;font-family:'Didact Gothic',sans-serif;font-size:14px;outline:none;width:100%;appearance:none">
+            <option value="" disabled selected>Тема запиту</option>
+            <option>Купівля автомобіля</option>
+            <option>Тест-драйв</option>
+            <option>Сервісне обслуговування</option>
+            <option>Trade-in</option>
+            <option>Кредитування</option>
+            <option>Загальне питання</option>
+          </select>
+          <textarea rows="4" placeholder="Ваше повідомлення..." style="background:#0d0d0d;border:0.5px solid var(--border);color:var(--white);padding:14px 18px;font-family:'Didact Gothic',sans-serif;font-size:14px;outline:none;width:100%;resize:vertical"></textarea>
+          <button class="btn-primary" style="width:100%;padding:16px" onclick="submitContact(this)">Надіслати повідомлення</button>
+        </div>
+      </div>
+    </div>
+    <!-- Map placeholder -->
+    <div style="margin-top:2px;border:0.5px solid var(--border);height:280px;background:var(--card-bg);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
+      <svg viewBox="0 0 900 280" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%">
+        <!-- Map grid -->
+        <rect width="900" height="280" fill="#0d0d0d"/>
+        <!-- Streets -->
+        <line x1="0" y1="140" x2="900" y2="140" stroke="#1a1a1a" stroke-width="18"/>
+        <line x1="450" y1="0" x2="450" y2="280" stroke="#1a1a1a" stroke-width="14"/>
+        <line x1="0" y1="70" x2="900" y2="70" stroke="#161616" stroke-width="8"/>
+        <line x1="0" y1="210" x2="900" y2="210" stroke="#161616" stroke-width="8"/>
+        <line x1="200" y1="0" x2="200" y2="280" stroke="#161616" stroke-width="8"/>
+        <line x1="680" y1="0" x2="680" y2="280" stroke="#161616" stroke-width="8"/>
+        <!-- Blocks -->
+        <rect x="10" y="80" width="180" height="50" rx="2" fill="#111"/>
+        <rect x="10" y="150" width="180" height="50" rx="2" fill="#111"/>
+        <rect x="210" y="80" width="230" height="50" rx="2" fill="#111"/>
+        <rect x="210" y="150" width="230" height="50" rx="2" fill="#111"/>
+        <rect x="460" y="80" width="210" height="50" rx="2" fill="#111"/>
+        <rect x="460" y="150" width="210" height="50" rx="2" fill="#111"/>
+        <rect x="690" y="80" width="200" height="50" rx="2" fill="#111"/>
+        <rect x="690" y="150" width="200" height="50" rx="2" fill="#111"/>
+        <!-- Pin -->
+        <circle cx="450" cy="130" r="20" fill="rgba(184,151,74,0.2)" stroke="#b8974a" stroke-width="1"/>
+        <circle cx="450" cy="130" r="8" fill="#b8974a"/>
+        <line x1="450" y1="148" x2="450" y2="162" stroke="#b8974a" stroke-width="2"/>
+        <!-- Label -->
+        <rect x="350" y="160" width="200" height="44" rx="4" fill="#111" stroke="#b8974a" stroke-width="0.5"/>
+        <text x="450" y="179" font-family="Georgia,serif" font-size="12" fill="#b8974a" text-anchor="middle" letter-spacing="1">Mercedes-Benz Київ</text>
+        <text x="450" y="196" font-family="sans-serif" font-size="10" fill="#666" text-anchor="middle">вул. Хрещатик, 1</text>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- PAYMENT MODAL -->
+<div class="modal-overlay" id="payment-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Оформлення замовлення</div>
+      <button class="modal-close" onclick="closePayment()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="payment-form-section">
+        <div class="modal-car-row">
+          <div class="modal-car-name" id="modal-car-name">Mercedes-Benz C-Class</div>
+          <div class="modal-car-price" id="modal-car-price">€ 52 000</div>
+        </div>
+
+        <div class="payment-methods">
+          <div class="pay-method selected" onclick="selectPayMethod(this)">💳 Картка</div>
+          <div class="pay-method" onclick="selectPayMethod(this)">🏦 Кредит</div>
+          <div class="pay-method" onclick="selectPayMethod(this)">🔄 Ліз</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Повне ім'я</label>
+          <input type="text" class="form-input" placeholder="Іван Петренко" oninput="clearFieldError(this)">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" placeholder="ivan@email.com" oninput="clearFieldError(this)">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Телефон</label>
+            <input type="tel" class="form-input" placeholder="+38 050 000 00 00" oninput="clearFieldError(this)">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Номер картки</label>
+          <input type="text" class="form-input" placeholder="0000 0000 0000 0000" maxlength="19" oninput="formatCard(this);clearFieldError(this)">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Термін дії</label>
+            <input type="text" class="form-input" placeholder="MM/РР" maxlength="5" oninput="formatExpiry(this)">
+          </div>
+          <div class="form-group">
+            <label class="form-label">CVV</label>
+            <input type="text" class="form-input" placeholder="•••" maxlength="3" oninput="formatCVV(this)">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Коментар до замовлення</label>
+          <input type="text" class="form-input" placeholder="Побажання, питання...">
+        </div>
+        <div class="total-row">
+          <span class="total-label">Сума до оплати</span>
+          <span class="total-amount" id="modal-total">€ 52 000</span>
+        </div>
+        <button class="btn-primary" style="width:100%;padding:16px;margin-top:16px;font-size:13px" onclick="processPayment()">Підтвердити замовлення</button>
+        <p style="font-size:11px;color:var(--text-muted);text-align:center;margin-top:12px;line-height:1.6">Натискаючи кнопку, ви погоджуєтесь з умовами договору купівлі-продажу. Всі дані шифруються за протоколом SSL.</p>
+      </div>
+      <div class="success-msg" id="payment-success">
+        <div class="success-icon">✓</div>
+        <div class="success-title">Замовлення прийнято!</div>
+        <p class="success-sub" style="margin-bottom:8px">Дякуємо за вашу довіру до Mercedes-Benz.</p>
+        <p class="success-sub">Наш менеджер зв'яжеться з вами протягом 30 хвилин для підтвердження деталей.</p>
+        <button class="btn-outline" style="margin-top:32px;padding:12px 36px" onclick="closePayment()">Закрити</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Car data
+const cars = [
+  {
+    id: 1,
+    class: "E-Klasse",
+    name: "Mercedes-Benz E 220d",
+    badge: "Новинка",
+    desc: "Елегантність та інновації у бездоганному виконанні. Ідеальний баланс комфорту та динаміки.",
+    price: "€ 68 000",
+    power: "197 л.с.",
+    accel: "7.2с",
+    drive: "4MATIC",
+    engine: "2.0 дизель",
+    torque: "440 Нм",
+    fuel: "5.2 л/100км",
+    year: "2024",
+    color: "Obsidian Black",
+    features: ["MBUX Navigation", "Augmented Reality", "Burmester Sound", "Ambient Lighting 64-color", "Massage seats", "Head-up Display"],
+    longDesc: "Mercedes-Benz E-Klasse — символ бізнес-преміуму. Новий E 220d оснащений найсучаснішою системою MBUX другого покоління з розширеною реальністю. Двигун OM654 відповідає стандарту Euro 6d і забезпечує мінімальне споживання палива при максимальній динаміці.",
+    svgColor: "#1c1c1c",
+    photo: "https://images.carsguide.com.au/image/upload/c_fit,h_841,w_1490,f_auto,t_cg_base/v1/editorial/Mercedes-benz-e220d-2016-grey-(1).jpg",
+    photoDetail: "https://lh4.googleusercontent.com/proxy/CYKBQsUVNmpyslrTkgybztNxbuaww0pRxMcQOM0tjaSOAfXwRNpkSHyWhsZ-uw5vC3FMKUPpyRqbLlhLQOTgwSkh88sFDmL9eBq2yxKIVYD91HJSdq6Dwx4-oWpb7f5xsCZuT_oGqu-Q9fTHGb5RbER9GBjjrCh2zPZ5Mpd_xFol2A-X8uKV6Gp_U28phVvL"
+  },
+  {
+    id: 2,
+    class: "S-Klasse",
+    name: "Mercedes-Benz S 500",
+    badge: "Преміум",
+    desc: "Флагман класу люкс. Найдосконаліший автомобіль у своєму класі за рівнем комфорту та технологій.",
+    price: "€ 145 000",
+    power: "435 л.с.",
+    accel: "4.9с",
+    drive: "4MATIC",
+    engine: "3.0 бензин",
+    torque: "520 Нм",
+    fuel: "8.9 л/100км",
+    year: "2024",
+    color: "Diamond White",
+    features: ["Executive Rear Seat", "E-Active Body Control", "Rear-Axle Steering", "Burmester 4D", "Night Vision Assist", "MBUX Hyperscreen"],
+    longDesc: "S-Klasse — еталон автомобільної досконалості. MBUX Hyperscreen — 56-дюймовий дисплей охоплює всю панель приладів. Система E-Active Body Control з функцією «гойдалки на дорозі» забезпечує неперевершений рівень комфорту на будь-якому покритті.",
+    svgColor: "#e8e8e8",
+    photo: "https://cdn5.vedomosti.ru/image/2015/11/11fkf0/original-1cig.jpg",
+    photoDetail: "https://images.pistonheads.com/nimg/45188/38708-NewS-ClassSaloon.jpg"
+  },
+  {
+    id: 3,
+    class: "GLE SUV",
+    name: "Mercedes-Benz GLE 450",
+    badge: "Популярне",
+    desc: "Розкішний позашляховик для міста та бездоріжжя. Потужність, простір і технології без обмежень.",
+    price: "€ 89 000",
+    power: "367 л.с.",
+    accel: "5.7с",
+    drive: "4MATIC",
+    engine: "3.0 EQ Boost",
+    torque: "500 Нм",
+    fuel: "9.2 л/100км",
+    year: "2024",
+    color: "Selenite Grey",
+    features: ["E-Active Body Control", "AIR BODY CONTROL", "Towing Package", "Panoramic Roof", "360° Camera", "Trailer Assist"],
+    longDesc: "GLE 450 — це ідеальне поєднання спортивного SUV та розкішного седана. Технологія EQ Boost забезпечує м'який і потужний старт завдяки інтегрованому стартер-генератору. Система AIR BODY CONTROL адаптує кліренс від 80 до 250 мм.",
+    svgColor: "#5c5c5c",
+    photo: "https://nnews.com.ua/wp-content/uploads/2026/04/image-14.webp",
+    photoDetail: "https://vehicle-images.carscommerce.inc/db2a-110012062/4JGFB8KBXTB511043/7936a1b9b554b3056fca0596d35cf869.jpg"
+  },
+  {
+    id: 4,
+    class: "AMG",
+    name: "Mercedes-AMG GT 63 S",
+    badge: "AMG",
+    desc: "Чотиридверне купе AMG з душею гоночного автомобіля. 630 к.с. чистої пристрасті та адреналіну.",
+    price: "€ 189 000",
+    power: "630 л.с.",
+    accel: "3.2с",
+    drive: "4MATIC+",
+    engine: "4.0 Biturbo",
+    torque: "900 Нм",
+    fuel: "12.4 л/100км",
+    year: "2024",
+    color: "Magno Selenite",
+    features: ["AMG TRACK PACE", "AMG SPEEDSHIFT", "Carbon Ceramic Brakes", "AMG Aerodynamics", "Race Mode", "Launch Control"],
+    longDesc: "GT 63 S — це не просто автомобіль, це художній твір AMG Performance. 4-літровий двигун V8 Biturbo розвиває 630 к.с. та 900 Нм крутного моменту. Система AMG ACTIVE RIDE CONTROL забезпечує гоночне керування при повсякденному комфорті.",
+    svgColor: "#2a0000",
+    photo: "https://www.cnet.com/a/img/resize/7f660d6a68a88c1326d76a18068bc785778af717/hub/2018/09/25/56549a0e-099d-4bb3-bb11-9047355be52d/2019-mercedes-amg-gt-63-s-4-door-coupe-social-media-1.jpg?auto=webp&fit=crop&height=675&width=1200",
+    photoDetail: "https://roycestars.com/wp-content/uploads/111-2.jpg"
+  },
+  {
+    id: 5,
+    class: "EQ",
+    name: "Mercedes-Benz EQS 580",
+    badge: "Електро",
+    desc: "Флагманський електромобіль майбутнього. До 780 км на одному заряді з нульовими викидами.",
+    price: "€ 112 000",
+    power: "523 л.с.",
+    accel: "4.3с",
+    drive: "4MATIC",
+    engine: "Електро",
+    torque: "855 Нм",
+    fuel: "19.6 кВт·г/100",
+    year: "2024",
+    color: "High-Tech Silver",
+    features: ["MBUX Hyperscreen", "Heat Pump", "Rear-Axle Steering 10°", "EQ Remote", "Smart Home Charging", "Transparent Hood"],
+    longDesc: "EQS 580 — вершина електромобільної революції Mercedes-Benz. Коефіцієнт аеродинамічного опору Cd=0.20 є найкращим у серійних автомобілях. Акумулятор ємністю 107.8 кВт·год забезпечує реальний пробіг до 780 км за циклом WLTP.",
+    svgColor: "#001a2e",
+    photo: "https://images.unsplash.com/photo-1652037954930-39b47d616b50?w=800&q=80",
+    photoDetail: "https://images.unsplash.com/photo-1652037954930-39b47d616b50?w=1200&q=85"
+  },
+  {
+    id: 6,
+    class: "C-Klasse",
+    name: "Mercedes-Benz C 200",
+    badge: "Бестселер",
+    desc: "Компактний преміум-седан з бездоганними пропорціями. Доступна точка входу у світ Mercedes.",
+    price: "€ 52 000",
+    power: "204 л.с.",
+    accel: "7.4с",
+    drive: "RWD",
+    engine: "1.5 EQ Boost",
+    torque: "300 Нм",
+    fuel: "6.1 л/100км",
+    year: "2024",
+    color: "Polar White",
+    features: ["MBUX 2nd Gen", "Digital Light", "Memory Package", "Wireless Charging", "Panoramic Sunroof", "Active Brake Assist"],
+    longDesc: "C 200 — найпопулярніша модель Mercedes-Benz. Новий дизайн інтер'єру натхненний S-Klasse: вертикальний центральний дисплей 11.9\" і цифрова панель приладів 12.3\" створюють відчуття технологічного майбутнього. Двигун M254 з системою EQ Boost забезпечує 20 к.с. додаткової потужності.",
+    svgColor: "#d0c8b8",
+    photo: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&q=80",
+    photoDetail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=1200&q=85"
+  }
+];
+
+let currentPaymentCar = null;
+
+function getCarSVG(car, large = false) {
+  const c = car.svgColor;
+  const w = large ? 480 : 360;
+  const h = large ? 320 : 200;
+  // Scale factor
+  const s = large ? 1.0 : 0.75;
+  const cx = large ? 240 : 180;
+  const cy = large ? 175 : 115;
+  // Simple stylized car
+  return `<svg viewBox="0 0 ${w} ${h}" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="${cx}" cy="${cy + 50*s}" rx="${170*s}" ry="${10*s}" fill="rgba(0,0,0,0.35)"/>
+    <path d="M${cx-140*s} ${cy+42*s} L${cx-120*s} ${cy-10*s} L${cx-60*s} ${cy-30*s} L${cx+20*s} ${cy-38*s} L${cx+100*s} ${cy-30*s} L${cx+130*s} ${cy-10*s} L${cx+140*s} ${cy+42*s} Z" fill="${c}" stroke="#333" stroke-width="0.8"/>
+    <path d="M${cx-80*s} ${cy-30*s} L${cx-60*s} ${cy-54*s} L${cx+20*s} ${cy-62*s} L${cx+78*s} ${cy-48*s} L${cx+100*s} ${cy-30*s}" fill="${c === '#e8e8e8' ? '#ddd' : '#181818'}" stroke="#2a2a2a" stroke-width="0.8"/>
+    <path d="M${cx-60*s} ${cy-54*s} L${cx-55*s} ${cy-30*s} L${cx+10*s} ${cy-30*s} L${cx+10*s} ${cy-60*s}" fill="rgba(100,170,210,0.12)" stroke="#222" stroke-width="0.7"/>
+    <path d="M${cx+14*s} ${cy-30*s} L${cx+16*s} ${cy-60*s} L${cx+78*s} ${cy-48*s} L${cx+82*s} ${cy-30*s}" fill="rgba(100,170,210,0.1)" stroke="#222" stroke-width="0.7"/>
+    <path d="M${cx-136*s} ${cy+40*s} L${cx-120*s} ${cy-8*s} L${cx-110*s} ${cy-5*s} L${cx-124*s} ${cy+36*s}" fill="${c === '#e8e8e8' ? '#ccc' : '#161616'}" stroke="#1a1a1a" stroke-width="0.5"/>
+    <rect x="${cx-138*s}" y="${cy+10*s}" width="${28*s}" height="${22*s}" rx="3" fill="#0a0a0a" stroke="#b8974a" stroke-width="0.6"/>
+    <line x1="${cx-124*s}" y1="${cy+10*s}" x2="${cx-124*s}" y2="${cy+32*s}" stroke="#b8974a" stroke-width="0.5"/>
+    <line x1="${cx-138*s}" y1="${cy+19*s}" x2="${cx-110*s}" y2="${cy+19*s}" stroke="#b8974a" stroke-width="0.4"/>
+    <path d="M${cx-138*s} ${cy} L${cx-110*s} ${cy-6*s} L${cx-107*s} ${cy+4*s} L${cx-135*s} ${cy+10*s}" fill="#b8974a" opacity="0.65"/>
+    <rect x="${cx+112*s}" y="${cy+2*s}" width="${18*s}" height="${28*s}" rx="2" fill="#cc3333" opacity="0.65"/>
+    <circle cx="${cx-90*s}" cy="${cy+50*s}" r="${30*s}" fill="#0a0a0a"/>
+    <circle cx="${cx-90*s}" cy="${cy+50*s}" r="${22*s}" fill="none" stroke="#444" stroke-width="1.5"/>
+    <circle cx="${cx-90*s}" cy="${cy+50*s}" r="${14*s}" fill="#111" stroke="#c0c0c0" stroke-width="1"/>
+    <circle cx="${cx-90*s}" cy="${cy+50*s}" r="${5*s}" fill="#b8974a"/>
+    <circle cx="${cx+80*s}" cy="${cy+50*s}" r="${30*s}" fill="#0a0a0a"/>
+    <circle cx="${cx+80*s}" cy="${cy+50*s}" r="${22*s}" fill="none" stroke="#444" stroke-width="1.5"/>
+    <circle cx="${cx+80*s}" cy="${cy+50*s}" r="${14*s}" fill="#111" stroke="#c0c0c0" stroke-width="1"/>
+    <circle cx="${cx+80*s}" cy="${cy+50*s}" r="${5*s}" fill="#b8974a"/>
+    <path d="M${cx-100*s} ${cy+16*s} Q${cx} ${cy+8*s} ${cx+105*s} ${cy+14*s}" fill="none" stroke="rgba(192,192,192,0.15)" stroke-width="1.2"/>
+    <rect x="${cx-8*s}" y="${cy+4*s}" width="${18*s}" height="${5*s}" rx="3" fill="#444"/>
+    <rect x="${cx+30*s}" y="${cy+4*s}" width="${18*s}" height="${5*s}" rx="4" fill="#444"/>
+    <circle cx="${cx-90*s}" cy="${cy-16*s}" r="${8*s}" fill="none" stroke="#c0c0c0" stroke-width="0.8"/>
+    <line x1="${cx-90*s}" y1="${cy-24*s}" x2="${cx-90*s}" y2="${cy-16*s}" stroke="#c0c0c0" stroke-width="0.7"/>
+    <line x1="${cx-90*s}" y1="${cy-16*s}" x2="${cx-97*s}" y2="${cy-10*s}" stroke="#c0c0c0" stroke-width="0.7"/>
+    <line x1="${cx-90*s}" y1="${cy-16*s}" x2="${cx-83*s}" y2="${cy-10*s}" stroke="#c0c0c0" stroke-width="0.7"/>
+    <circle cx="${cx-90*s}" cy="${cy-16*s}" r="${3*s}" fill="#b8974a"/>
+  </svg>`;
+}
+
+function renderCarCard(car) {
+  return `<div class="car-card" onclick="showCarDetail(${car.id})">
+    <div class="car-card-badge">${car.badge}</div>
+    <div class="car-card-img"><img src="${car.photo}" alt="${car.name}" loading="lazy" onerror="this.parentElement.innerHTML=getCarSVG(car)"></div>
+    <div class="car-card-body">
+      <div class="car-card-class">${car.class}</div>
+      <div class="car-card-name">${car.name}</div>
+      <div class="car-card-desc">${car.desc}</div>
+      <div class="car-card-specs">
+        <div class="spec"><span class="spec-val">${car.power}</span><span class="spec-lbl">Потужність</span></div>
+        <div class="spec"><span class="spec-val">${car.accel}</span><span class="spec-lbl">0–100 км/г</span></div>
+        <div class="spec"><span class="spec-val">${car.drive}</span><span class="spec-lbl">Привід</span></div>
+      </div>
+      <div class="car-card-footer">
+        <div class="car-card-price">${car.price} <span>від</span></div>
+        <button class="btn-sm" onclick="event.stopPropagation();showCarDetail(${car.id})">Детальніше →</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function showCarDetail(id) {
+  const car = cars.find(c => c.id === id);
+  if (!car) return;
+  const featureIcons = ['🗺️','⚙️','🔊','💡','💺','🖥️','🚗','🏁','🔋','📡','🎯','🛡️'];
+  const featuresHTML = car.features.map((f, i) => `
+    <div class="feature-item">
+      <div class="feature-icon">${featureIcons[i % featureIcons.length]}</div>
+      <div class="feature-name">${f}</div>
+    </div>`).join('');
+
+  document.getElementById('detail-content').innerHTML = `
+    <div style="padding:28px 56px 8px">
+      <button class="detail-back" onclick="showPage('catalog')">← Повернутись до каталогу</button>
+    </div>
+    <div class="detail-hero">
+      <div class="detail-visual"><img src="${car.photoDetail}" alt="${car.name}" style="max-width:100%;max-height:460px;object-fit:contain;" onerror="this.outerHTML=getCarSVG(car,true)"></div>
+      <div class="detail-info">
+        <div class="detail-class">${car.class} · ${car.year}</div>
+        <div class="detail-title">${car.name.replace('Mercedes-Benz ','')}</div>
+        <div class="detail-tagline">${car.longDesc}</div>
+        <div class="detail-specs-grid">
+          <div class="detail-spec"><div class="detail-spec-label">Двигун</div><div class="detail-spec-value">${car.engine}</div></div>
+          <div class="detail-spec"><div class="detail-spec-label">Потужність</div><div class="detail-spec-value">${car.power}</div></div>
+          <div class="detail-spec"><div class="detail-spec-label">0–100 км/г</div><div class="detail-spec-value">${car.accel}</div></div>
+          <div class="detail-spec"><div class="detail-spec-label">Крутний момент</div><div class="detail-spec-value">${car.torque}</div></div>
+          <div class="detail-spec"><div class="detail-spec-label">Привід</div><div class="detail-spec-value">${car.drive}</div></div>
+          <div class="detail-spec"><div class="detail-spec-label">Витрата</div><div class="detail-spec-value">${car.fuel}</div></div>
+        </div>
+        <div class="detail-price-row">
+          <div class="detail-price">${car.price}</div>
+          <div class="detail-price-note">рекомендована ціна</div>
+        </div>
+        <div style="display:flex;gap:12px">
+          <button class="btn-primary" style="flex:1;padding:14px" onclick="openPayment(${car.id})">Замовити автомобіль</button>
+          <button class="btn-outline" style="padding:14px 20px" onclick="showPage('contacts')">Тест-драйв</button>
+        </div>
+      </div>
+    </div>
+    <div class="detail-features">
+      <div class="features-title">Ключові особливості</div>
+      <div class="features-grid">${featuresHTML}</div>
+    </div>
+    <div style="padding:32px 48px 56px;display:grid;grid-template-columns:1fr 1fr;gap:2px">
+      <div style="background:var(--card-bg);border:0.5px solid var(--border);padding:28px">
+        <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px">Кольори кузова</div>
+        <div style="font-size:14px;color:var(--white)">${car.color}</div>
+        <div style="font-size:13px;color:var(--text-muted);margin-top:4px">+ 8 кольорів в наявності</div>
+        <div style="display:flex;gap:8px;margin-top:16px">
+          ${['#1c1c1c','#e8e8e8','#d0c8b8','#5c5c5c','#001a2e','#2a0000','#1a2a1a','#3a2a0a'].map(col => `<div style="width:24px;height:24px;border-radius:50%;background:${col};border:1px solid #333;cursor:pointer"></div>`).join('')}
+        </div>
+      </div>
+      <div style="background:var(--card-bg);border:0.5px solid var(--border);padding:28px">
+        <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px">Умови придбання</div>
+        <div style="font-size:13px;color:var(--text-muted);line-height:1.8">
+          ✓ Кредит від 0.9% річних<br>
+          ✓ Лізинг для юридичних осіб<br>
+          ✓ Trade-in за вигідним курсом<br>
+          ✓ Доставка по всій Україні
+        </div>
+      </div>
+    </div>
+  `;
+  showPage('detail');
+}
+
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  const navEl = document.getElementById('nav-' + name);
+  if (navEl) navEl.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function openPayment(carId) {
+  const car = cars.find(c => c.id === carId);
+  if (!car) return;
+  currentPaymentCar = car;
+  document.getElementById('modal-car-name').textContent = car.name;
+  document.getElementById('modal-car-price').textContent = car.price;
+  document.getElementById('modal-total').textContent = car.price;
+  document.getElementById('payment-form-section').style.display = 'block';
+  document.getElementById('payment-success').style.display = 'none';
+  document.getElementById('payment-modal').classList.add('open');
+}
+
+function closePayment() {
+  document.getElementById('payment-modal').classList.remove('open');
+}
+
+function selectPayMethod(el) {
+  document.querySelectorAll('.pay-method').forEach(m => m.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function formatExpiry(el) {
+  let v = el.value.replace(/\D/g, '').substring(0, 4);
+  if (v.length >= 3) v = v.substring(0,2) + '/' + v.substring(2);
+  el.value = v;
+}
+
+function formatCVV(el) {
+  el.value = el.value.replace(/\D/g, '').substring(0, 3);
+}
+
+function setFieldError(input, msg) {
+  input.style.borderColor = '#cc3333';
+  let err = input.nextElementSibling;
+  if (!err || !err.classList.contains('field-error')) {
+    err = document.createElement('div');
+    err.className = 'field-error';
+    err.style.cssText = 'color:#cc3333;font-size:11px;margin-top:4px;letter-spacing:0.05em';
+    input.parentNode.insertBefore(err, input.nextSibling);
+  }
+  err.textContent = msg;
+}
+
+function clearFieldError(input) {
+  input.style.borderColor = '';
+  const err = input.nextElementSibling;
+  if (err && err.classList.contains('field-error')) err.remove();
+}
+
+function validatePaymentForm() {
+  const modal = document.getElementById('payment-modal');
+  const inputs = modal.querySelectorAll('.form-input');
+  // Map: [0]=ПІБ, [1]=Email, [2]=Телефон, [3]=Картка, [4]=Термін, [5]=CVV
+  const [nameEl, emailEl, phoneEl, cardEl, expiryEl, cvvEl] = inputs;
+  let valid = true;
+
+  // ПІБ
+  if (!nameEl.value.trim() || nameEl.value.trim().length < 3) {
+    setFieldError(nameEl, 'Введіть повне ім\'я (мін. 3 символи)'); valid = false;
+  } else clearFieldError(nameEl);
+
+  // Email
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value.trim())) {
+    setFieldError(emailEl, 'Введіть коректний email'); valid = false;
+  } else clearFieldError(emailEl);
+
+  // Телефон — тільки цифри, мін 10
+  const phoneDigits = phoneEl.value.replace(/\D/g, '');
+  if (phoneDigits.length < 10) {
+    setFieldError(phoneEl, 'Введіть коректний номер телефону'); valid = false;
+  } else clearFieldError(phoneEl);
+
+  // Перевіряємо поля картки тільки якщо обрана оплата карткою
+  const selectedMethod = modal.querySelector('.pay-method.selected');
+  const isCard = selectedMethod && selectedMethod.textContent.includes('Картка');
+
+  if (isCard) {
+    // Номер картки — 16 цифр
+    const cardDigits = cardEl.value.replace(/\s/g, '');
+    if (!/^\d{16}$/.test(cardDigits)) {
+      setFieldError(cardEl, 'Введіть 16 цифр номера картки'); valid = false;
+    } else clearFieldError(cardEl);
+
+    // Термін дії MM/РР
+    const expiryVal = expiryEl.value.trim();
+    if (!/^\d{2}\/\d{2}$/.test(expiryVal)) {
+      setFieldError(expiryEl, 'Формат MM/РР'); valid = false;
+    } else {
+      const [mm, yy] = expiryVal.split('/').map(Number);
+      const now = new Date();
+      const expDate = new Date(2000 + yy, mm - 1);
+      if (mm < 1 || mm > 12 || expDate < new Date(now.getFullYear(), now.getMonth())) {
+        setFieldError(expiryEl, 'Картка прострочена або невірна дата'); valid = false;
+      } else clearFieldError(expiryEl);
+    }
+
+    // CVV — 3 цифри
+    if (!/^\d{3}$/.test(cvvEl.value.trim())) {
+      setFieldError(cvvEl, 'CVV — 3 цифри'); valid = false;
+    } else clearFieldError(cvvEl);
+  } else {
+    [cardEl, expiryEl, cvvEl].forEach(clearFieldError);
+  }
+
+  return valid;
+}
+
+function processPayment() {
+  if (!validatePaymentForm()) return;
+  document.getElementById('payment-form-section').style.display = 'none';
+  document.getElementById('payment-success').style.display = 'block';
+}
+
+function formatCard(el) {
+  let v = el.value.replace(/\D/g, '').substring(0,16);
+  el.value = v.replace(/(.{4})/g,'$1 ').trim();
+}
+
+function submitContact(btn) {
+  btn.textContent = '✓ Надіслано!';
+  btn.style.background = '#2a5a2a';
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.textContent = 'Надіслати повідомлення';
+    btn.style.background = '';
+    btn.disabled = false;
+  }, 3000);
+}
+
+// Close modal on backdrop click
+document.getElementById('payment-modal').addEventListener('click', function(e) {
+  if (e.target === this) closePayment();
+});
+
+// Init
+document.getElementById('home-cars').innerHTML = cars.slice(0,3).map(renderCarCard).join('');
+document.getElementById('catalog-cars').innerHTML = cars.map(renderCarCard).join('');
+</script>
+</body>
+</html>
